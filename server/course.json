@@ -1,0 +1,25 @@
+{
+    "courseCount": 4,
+    "results":[
+        {
+            "coursecode": "ACT6BNN31",
+            "coursetitle": "APPLIED COMPUTING TECHNOLOGIES",
+            "department": "Computing"
+        },
+        {
+            "coursecode": "CNT1BNN23",
+            "coursetitle": "COMPUTER & NETWORK TECHNOLOGY",
+            "department": "Computing"
+        },
+        {
+            "coursecode": "CAE1BNN23",
+            "coursetitle": "COMPUTER AIDED ENGINEERING",
+            "department": "Computing"
+        },
+        {
+            "coursecode": "CFO1BNN23",
+            "coursetitle": "COMPUTER FORENSICS",
+            "department": "Computing"
+        }
+    ]
+}

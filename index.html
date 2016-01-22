@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="CourseApp">
     <head>
         <title>AngularJS Course-Students SPA</title>
         <meta charset="UTF-8">
@@ -10,6 +10,15 @@
     <h1>Demo SPA</h1>
       <div id="page">
           <!-- dynamic content will go here -->
+          <section data-ng-controller="IndexController">
+          	<!-- use double braces to refer to a property defined in IndexController -->
+          	<h1>{{title}}</h1>
+          	<h2>{{subTitle}}</h2>
+		  </section>
+		  <section data-ng-controller="CourseController">
+		  	<article data-ng-view></article>
+		  </section>
+
       </div>
 
       <!-- load the basic angular libraries, though initially we'll only need the first two -->

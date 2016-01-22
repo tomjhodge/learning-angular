@@ -1,4 +1,4 @@
-(function(){
+(function(){ // immediately invoked function
 	"use strict"; // turn on javascript strict syntax mode
 
 	/**
@@ -26,6 +26,5 @@
 					});
 			}
 		]
-	)
-}
-);
+	); // end of config method
+}()); // end of IIFE
