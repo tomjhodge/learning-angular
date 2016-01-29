@@ -17,44 +17,55 @@
      	controller('IndexController', // controller given two parameters, a name and an array
      		[
      			'$scope',
-     			function ($scope){
+     			'dataService',
+
+     			function ($scope, dataService){
      				// add a title property which we can refer to in our view (index.html in this example)
-     				$scope.title = 'Course & Student Information';
-     				$scope.subTitle = 'Course listing';
+     				//$scope.title = 'Course & Student Information';
+     				//$scope.subTitle = 'Course listing';
+
+     				var getSysInfo = function(){
+     					dataService.getSysInfo().then(
+     						function(response){
+     							$scope.title = response.title;
+     							$scope.author = response.author;
+     						},
+     						function(err){
+     						$scope.status = 'Unable to load system data ' + err;
+     						},
+     						function(notify){
+     							console.log(notify);
+     						}
+     					);
+     				};
+
+     				getSysInfo();
      			}
      		]
      	).
      	controller('CourseController', // create CourseController
      		[
      			'$scope',
-     			/**
-     			 *
-     			 * @access public
-     			 * @return void
-     			 **/
-     			function ($scope){
-  					$scope.courses = [ // create a variable to hold an array of object literals, one for each course
-  						{
-  							coursecode: "ACT6BNN31",
-                            coursetitle: "APPLIED COMPUTING TECHNOLOGIES SEP NEWCASTLE",
-                            department: "Computing"
-  						},
-  						{
-                            coursecode: "CNT1BNN23",
-                            coursetitle: "COMPUTER & NETWORK TECHNOLOGY SEP NEWCASTLE",
-                            department: "Computing"
-                        },
-                        {
-                            coursecode: "CAE1BNN23",
-                            coursetitle: "COMPUTER AIDED ENGINEERING SEP NEWCASTLE",
-                            department: "Computing"
-                        },
-                        {
-                            coursecode: "CFO1BNN23",
-                            coursetitle: "COMPUTER FORENSICS SEP NEWCASTLE",
-                            department: "Computing"
-                        }
-  					];
+     			'dataService', // pass in the name we gave our angular.service()
+
+     			function ($scope, dataService){ // declare thye two dependencies as parameters
+     				var getCourses = function(){
+     					dataService.getCourses().then( // then() is called when the promise is resolved or rejected
+     						// .then() takes three arguments which are functions to handle success, failure and notification
+     						function(response){
+     							$scope.courseCount = response.rowCount + 'courses';
+     							$scope.courses = response.data;
+     						},
+     						function(err){
+     							$scope.status = 'Unable to load data ' + err;
+     						},
+     						function(notify){
+     							console.log(notify);
+     						}
+     					); // end of getCourses().then
+     				}; // end of function var getCourses
+
+     				getCourses(); // call the method just defined
      			}
      		]
      	);

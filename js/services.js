@@ -11,7 +11,7 @@
 					/*
 					* var to hold the data base url
 					*/
-					var urlBase = '/angular/server/';
+					var urlBase = '/year-3/CM0665-web-app-int/angular/server/';
 
 					/*
 					* method to retrieve courses or, more accurately, a promise which, when fulfilled, calls the success method
@@ -39,8 +39,27 @@
 							});
 							// the call to getCourses returns this promise which is fulfilled
 							// by the .get method .success or .failure
-							return defer.promise
+							return defer.promise;
 					};
+
+					this.getSysInfo = function(){
+						var defer = $q.defer(), // create promise
+							sysInfoUrl = urlBase + 'appInfo.json';
+
+						// make ajax call
+						$http.get(sysInfoUrl, {cache:false}).
+							success(function(response){
+								defer.resolve({
+									title: response.title,
+									author: response.author
+								});
+							}).
+							error(function(err){
+								defer.reject(err);
+							});
+							return defer.promise;
+					};
+
 				}
 			]
 		);
