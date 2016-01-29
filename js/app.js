@@ -21,6 +21,12 @@
 						templateUrl: 'js/partials/course-list.html',
 						controller: 'CourseController'
 					}).
+					when('/courses/:courseid', {
+					// the :course id means that what follows the / won't be the literal word courseid,
+					//but instead a parameter, the value of which wil be stored in a variable called courseid
+						templateUrl: 'js/partials/student-list.html',
+						controller: 'CourseStudentsController'
+					}).
 					otherwise({
 						redirectTo: '/'
 					});

@@ -2,7 +2,9 @@
     <table>
     <caption>There are {{courses.length}} courses listed.</caption>
         <tr data-ng-repeat="course in courses">
-            <td>{{course.coursecode}}</td>
+            <td>
+            	<a href="#/courses/{{course.coursecode}}">{{course.coursecode}}</a>
+            </td>
             <td>{{course.coursetitle}}</td>
         </tr>
     </table>

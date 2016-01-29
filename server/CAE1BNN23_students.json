@@ -1,0 +1,19 @@
+{
+    "studentCount": 2,
+    "results": [
+        {
+            "studentid": "a8108314",
+            "forename": "Joanne ",
+            "surname": "Putney",
+            "stage": "1",
+            "email": "j.putney@srs.ac.uk"
+        },
+        {
+            "studentid": "a7002607",
+            "forename": "Meridith",
+            "surname": "Atali",
+            "stage": "2",
+            "email": "m.atali@srs.ac.uk"
+        }
+    ]
+}

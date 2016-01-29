@@ -68,5 +68,35 @@
      				getCourses(); // call the method just defined
      			}
      		]
+     	).
+     	controller('CourseStudentsController',
+     		[
+     			'$scope',
+     			'dataService',
+     			'$routeParams', // another built in variable, giving us access to the paramter in the url which we named :courseid
+
+     			function($scope, dataService, $routeParams){
+     				$scope.students = [];
+     				$scope.studentCount = 0;
+
+     				var getStudents = function(coursecode){
+     					dataService.getStudents(coursecode).then(
+     						function(response){
+     							$scope.studentCount = response.rowCount;
+     							$scope.students = response.data;
+     						},
+     						function(err){
+     							$scope.status = 'Unable to load data ' + err;
+     						}
+     					); // end of getStudents().then()
+     				};
+
+     				// only if there has been a courseid passed in do we bother trying to get the students
+     				if($routeParams && $routeParams.courseid){
+     					console.log($routeParams.courseid);
+     					getStudents($routeParams.courseid);
+     				}
+     			}
+     		]
      	);
 }());

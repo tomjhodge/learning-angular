@@ -1,0 +1,26 @@
+{
+    "studentCount": 3,
+    "results": [
+        {
+            "studentid": "a8008314",
+            "forename": "Megan Amy",
+            "surname": "Ainsley",
+            "stage": "1",
+            "email": "megan.ainsley@srs.ac.uk"
+        },
+        {
+            "studentid": "a7002607",
+            "forename": "Mark",
+            "surname": "Alali",
+            "stage": "2",
+            "email": "mark.alali@srs.ac.uk"
+        },
+        {
+            "studentid": "a7006483",
+            "forename": "Calum Duncan",
+            "surname": "Almond",
+            "stage": "2",
+            "email": "calum.almond@srs.ac.uk"
+        }
+    ]
+}

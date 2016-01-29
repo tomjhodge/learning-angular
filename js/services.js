@@ -60,6 +60,30 @@
 							return defer.promise;
 					};
 
+					/**
+					 *
+					 * @param {string} courseCode The course code for the course the students are following
+					 * @returns {object} promise
+					 */
+					this.getStudents = function(courseCode){
+						var defer = $q.defer(),
+							studentsUrl = urlBase + courseCode + '_students.json';
+
+						$http.get(studentsUrl, {cache: false}).
+							success(function(response){
+								defer.resolve({
+									data: response.results,
+									rowCount: response.studentCount
+								});
+							}).
+							error(function(err){
+								defer.reject(err);
+							});
+						// the call to getCourses returns this promise which is fulfilled
+						// by the .get method .success or .failure
+						return defer.promise;
+					};
+
 				}
 			]
 		);
