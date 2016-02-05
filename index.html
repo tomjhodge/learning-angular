@@ -21,6 +21,8 @@
           	<h1>Title: {{title}}</h1>
           	<h2>Subtitle: {{subTitle}}</h2>
           	<p>Author: {{author}}</p>
+
+          	<h2>Course Title: {{$scope.coursetitle}}</h2>
 		  </section>
 		  	<article data-ng-controller="CourseController" data-ng-include="'js/partials/course-list.html'"></article>
 		  	<article data-ng-view></article>

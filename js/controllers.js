@@ -18,8 +18,9 @@
      		[
      			'$scope',
      			'dataService',
+     			'applicationData',
 
-     			function ($scope, dataService){
+     			function ($scope, dataService, appData){
      				// add a title property which we can refer to in our view (index.html in this example)
      				//$scope.title = 'Course & Student Information';
      				//$scope.subTitle = 'Course listing';
@@ -53,6 +54,10 @@
 						);
      				};
 
+     				$scope.$on('systemInfo_course', function(ev, course){
+     					$scope.coursetitle = course.coursetitle;
+					});
+
      				getSysInfo();
      				getNavigation();
      			}
@@ -63,8 +68,9 @@
      			'$scope',
      			'dataService', // pass in the name we gave our angular.service()
      			'$location',
+     			'applicationData',
 
-     			function ($scope, dataService, $location){ // declare thye two dependencies as parameters
+     			function ($scope, dataService, $location, appData){ // declare thye two dependencies as parameters
      				var getCourses = function(){
      					dataService.getCourses().then( // then() is called when the promise is resolved or rejected
      						// .then() takes three arguments which are functions to handle success, failure and notification
@@ -81,6 +87,8 @@
      					); // end of getCourses().then
      				}; // end of function var getCourses
 
+     				appData.publishInfo('course', {});
+
      				var courseInfo = $location.path().substr(1).split('/');
      				if(courseInfo.length === 2){
      					// use the course code from the path and assign to selectedCourse so if the page is reloaded it's highlighted
@@ -91,7 +99,12 @@
 					$scope.selectCourse = function($event, course){
 						$scope.selectedCourse = course;
 						$location.path('/courses/' + course.coursecode);
+						appData.publishInfo('course', course);
 					}
+
+
+
+
      				getCourses(); // call the method just defined
      			}
      		]

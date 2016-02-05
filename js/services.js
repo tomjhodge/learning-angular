@@ -103,6 +103,19 @@
 
 				}
 			]
+		).
+		service('applicationData',
+			function($rootScope){ // root scope is predefined in angular
+				var sharedService = {};
+				sharedService.info = {};
+
+				sharedService.publishInfo = function(key, obj){
+					this.info[key] = obj;
+					$rootScope.$broadcast('systemInfo_'+key, obj);
+				};
+
+				return sharedService;
+			}
 		);
 
 }());
