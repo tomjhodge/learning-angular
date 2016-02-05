@@ -84,6 +84,23 @@
 						return defer.promise;
 					};
 
+					// pull back the sitemap data to be able to construct the navigation
+					this.getNavigation = function(){
+						var defer = $q.defer(),
+							navUrl = urlBase + 'navigation.json';
+
+						$http.get(navUrl, {cache: false}).
+							success(function(response){
+								defer.resolve({
+									data: response.navigation,
+								});
+							}).
+							error(function(err){
+								defer.reject(err);
+							});
+						return defer.promise;
+					};
+
 				}
 			]
 		);

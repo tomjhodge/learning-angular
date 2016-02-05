@@ -39,7 +39,22 @@
      					);
      				};
 
+     				var getNavigation = function(){
+     					dataService.getNavigation().then(
+     						function(response){
+     							$scope.navigation = response.data;
+     						},
+     						function(err){
+     							$scope.navStatus = 'Unable to load navigation ' + err;
+     						},
+     						function(notify){
+     							console.log(notify);
+							}
+						);
+     				};
+
      				getSysInfo();
+     				getNavigation();
      			}
      		]
      	).
@@ -47,8 +62,9 @@
      		[
      			'$scope',
      			'dataService', // pass in the name we gave our angular.service()
+     			'$location',
 
-     			function ($scope, dataService){ // declare thye two dependencies as parameters
+     			function ($scope, dataService, $location){ // declare thye two dependencies as parameters
      				var getCourses = function(){
      					dataService.getCourses().then( // then() is called when the promise is resolved or rejected
      						// .then() takes three arguments which are functions to handle success, failure and notification
@@ -65,6 +81,17 @@
      					); // end of getCourses().then
      				}; // end of function var getCourses
 
+     				var courseInfo = $location.path().substr(1).split('/');
+     				if(courseInfo.length === 2){
+     					// use the course code from the path and assign to selectedCourse so if the page is reloaded it's highlighted
+     					$scope.selectedCourse = {coursecode: courseInfo[1]};
+     				}
+     				//$scope.selectedCourse = {};
+
+					$scope.selectCourse = function($event, course){
+						$scope.selectedCourse = course;
+						$location.path('/courses/' + course.coursecode);
+					}
      				getCourses(); // call the method just defined
      			}
      		]
@@ -74,8 +101,10 @@
      			'$scope',
      			'dataService',
      			'$routeParams', // another built in variable, giving us access to the paramter in the url which we named :courseid
+     			'$location',
 
-     			function($scope, dataService, $routeParams){
+
+     			function($scope, dataService, $routeParams, $location){
      				$scope.students = [];
      				$scope.studentCount = 0;
 
@@ -95,6 +124,18 @@
      				if($routeParams && $routeParams.courseid){
      					console.log($routeParams.courseid);
      					getStudents($routeParams.courseid);
+     				}
+
+     				var studentInfo = $location.path().substr(1).split('/');
+     				if(studentInfo.length === 3){
+     					$scope.selectedStudent = {studentId: studentInfo[2]};
+     				}
+
+     				$scope.selectStudent = function($event, student){
+     					// $event is built in object storing info about the click
+     					// student is passed in
+     					$scope.selectedStudent = student;
+     					// later, build in redirect for when clicking on student
      				}
      			}
      		]

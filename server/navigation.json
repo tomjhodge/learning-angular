@@ -1,0 +1,9 @@
+{
+	"navigation": [{
+		"linkText": "Home",
+		"linkPath": "#/"
+	}, {
+		"linkText": "Courses",
+		"linkPath": "#/courses"
+	}]
+}

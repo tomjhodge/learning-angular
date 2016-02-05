@@ -12,11 +12,17 @@
       <div id="page">
           <!-- dynamic content will go here -->
           <section data-ng-controller="IndexController">
+          	<nav>
+          		<ul>
+          			<li data-ng-repeat="link in navigation"><a href="{{link.linkPath}}">{{link.linkText}}</a></li>
+				</ul>
+			</nav>
           	<!-- use double braces to refer to a property defined in IndexController -->
           	<h1>Title: {{title}}</h1>
           	<h2>Subtitle: {{subTitle}}</h2>
           	<p>Author: {{author}}</p>
 		  </section>
+		  	<article data-ng-controller="CourseController" data-ng-include="'js/partials/course-list.html'"></article>
 		  	<article data-ng-view></article>
 
 

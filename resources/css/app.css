@@ -1,0 +1,4 @@
+.selected, .selected a {
+	color: red !important;
+	font-style: italic;
+}

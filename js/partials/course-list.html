@@ -1,9 +1,12 @@
 <section>
     <table>
     <caption>There are {{courses.length}} courses listed.</caption>
-        <tr data-ng-repeat="course in courses">
+        <tr 	data-ng-repeat="course in courses"
+        		data-ng-click="selectCourse($event, course)"
+        		data-ng-class="{'selected':selectedCourse.coursecode===course.coursecode}"
+				style="cursor:pointer;">
             <td>
-            	<a href="#/courses/{{course.coursecode}}">{{course.coursecode}}</a>
+            	{{course.coursecode}}
             </td>
             <td>{{course.coursetitle}}</td>
         </tr>

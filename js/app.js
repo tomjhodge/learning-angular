@@ -18,7 +18,7 @@
 			function($routeProvider){
 				$routeProvider.
 					when('/courses', {
-						templateUrl: 'js/partials/course-list.html',
+						//templateUrl: 'js/partials/course-list.html',
 						controller: 'CourseController'
 					}).
 					when('/courses/:courseid', {
