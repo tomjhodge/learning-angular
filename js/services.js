@@ -11,7 +11,7 @@
 					/*
 					* var to hold the data base url
 					*/
-					var urlBase = '/year-3/CM0665-web-app-int/angular/server/';
+					var urlBase = '/year-3/CM0665-web-app-int/angular/server/index.php';
 
 					/*
 					* method to retrieve courses or, more accurately, a promise which, when fulfilled, calls the success method
@@ -19,7 +19,11 @@
 					*/
 					this.getCourses = function(){  // "this" is the dataService object
 						var defer = $q.defer(),	// the promise
-							courseUrl = urlBase + 'courses.json'; // add the static file containing courses to the base url
+							data = {
+								action: 'list',
+								subject: 'courses'
+							};
+							//courseUrl = urlBase + 'courses.json'; // add the static file containing courses to the base url
 						/**
 						* make an ajax get call
 						* chain calls to .success and .error which will reolve or reject the promise
@@ -27,11 +31,11 @@
 						* @param {object} config = a configuration object, can contain paramters to pass - in this case we'll set cache to true
 						* @param {object} promise = the call returns not data, but a promise, which is only honoured if the call is successful
 						*/
-						$http.get(courseUrl, {cache:true}). // dot to chain method on next line. Cache set to true since data won't change
+						$http.get(urlBase, {params: data, cache:true}). // dot to chain method on next line. Cache set to true since data won't change
 							success(function(response){ // the sucess function has a function passed to it as a parameter. That function's "response" parameter will hold the response from the ajax get() call
 								defer.resolve({ // we define the defer.resolve() function - defer being the promise object. The argument passed is the object which will be returned if the promise is "resolved"
-									data: response.results,
-									rowCount: response.courseCount
+									data: response.ResultSet.Result,
+									rowCount: response.ResultSet.RowCount
 								});
 							}).
 							error(function(err){ // this will happen if get() returns an error
@@ -67,13 +71,18 @@
 					 */
 					this.getStudents = function(courseCode){
 						var defer = $q.defer(),
-							studentsUrl = urlBase + courseCode + '_students.json';
+							data = {
+								action: 'list',
+								subject: 'students',
+								id: courseCode
+							};
+							//studentsUrl = urlBase + courseCode + '_students.json';
 
-						$http.get(studentsUrl, {cache: false}).
+						$http.get(urlBase, {params: data, cache: false}).
 							success(function(response){
 								defer.resolve({
-									data: response.results,
-									rowCount: response.studentCount
+									data: response.ResultSet.Result,
+									rowCount: response.ResultSet.RowCount
 								});
 							}).
 							error(function(err){
