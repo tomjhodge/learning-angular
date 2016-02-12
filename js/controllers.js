@@ -24,6 +24,7 @@
      				// add a title property which we can refer to in our view (index.html in this example)
      				//$scope.title = 'Course & Student Information';
      				//$scope.subTitle = 'Course listing';
+     				$scope.coursetitle = '';
 
      				var getSysInfo = function(){
      					dataService.getSysInfo().then(
