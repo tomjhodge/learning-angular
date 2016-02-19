@@ -1,0 +1,14 @@
+<h2>Editor</h2>
+<form>
+    <fieldset><legend>Student Details</legend>
+        <label for="forename">Forename: </label>
+        <input type="text" data-ng-model="selectedStudent.forename" id="forename" />
+        <label for="surname">Surname: </label>
+        <input type="text" data-ng-model="selectedStudent.surname" id="surname" />
+        <label for="email">email: </label>
+        <input type="text" data-ng-model="selectedStudent.email" id="email" />
+
+        <button data-ng-click="saveStudent()">Save</button>
+        <button data-ng-click="abandonEdit()">Cancel</button>
+    </fieldset>
+</form>

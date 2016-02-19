@@ -2,3 +2,8 @@
 	color: red !important;
 	font-style: italic;
 }
+#studentEditor{
+	background-color:#ececec;
+	border:2px inset black;
+	padding: 10px;
+}

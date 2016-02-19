@@ -48,7 +48,7 @@
 
 					this.getSysInfo = function(){
 						var defer = $q.defer(), // create promise
-							sysInfoUrl = urlBase + 'appInfo.json';
+							sysInfoUrl = '/year-3/CM0665-web-app-int/angular/server/appInfo.json';
 
 						// make ajax call
 						$http.get(sysInfoUrl, {cache:false}).
@@ -93,10 +93,34 @@
 						return defer.promise;
 					};
 
+					/**
+					 * By default post sends data as application/json you need to make sure your server handles that
+					 * @param student
+					 * @returns {promise|*}
+					 */
+					this.updateStudent = function (student) {
+					    var defer = $q.defer(),
+					        data = {
+					            action: 'update',
+					            subject: 'student',
+					            data: angular.toJson(student)
+					        };
+
+					    $http.post(urlBase, data).
+					        success(function(response){
+					            defer.resolve(response);
+					        }).
+					        error(function (err){
+					            defer.reject(err);
+					        });
+					    return defer.promise;
+					};
+
+
 					// pull back the sitemap data to be able to construct the navigation
 					this.getNavigation = function(){
 						var defer = $q.defer(),
-							navUrl = urlBase + 'navigation.json';
+							navUrl = '/year-3/CM0665-web-app-int/angular/server/navigation.json';
 
 						$http.get(navUrl, {cache: false}).
 							success(function(response){

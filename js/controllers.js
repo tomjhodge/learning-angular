@@ -140,6 +140,73 @@
      					getStudents($routeParams.courseid);
      				}
 
+					/**
+					 * Shows the edit window and positions it based on the row clicked on.
+					 *
+					 * @param {object} $event
+					 * @param {object} student
+					 * @returns {null}
+					 */
+					$scope.showEditStudent = function ($event, student, editorID) {
+					    var element = $event.currentTarget,
+					        padding = 22,
+					        posY = (element.offsetTop + element.clientTop + padding) - (element.scrollTop + element.clientTop),
+					        studentEditorElement = document.getElementById(editorID);
+
+					    console.log(student);
+					    $scope.selectedStudent = angular.copy(student);
+					    $scope.editorVisible = true;
+
+					    studentEditorElement.style.position = 'absolute';
+					    studentEditorElement.style.top = posY + 'px';
+					 };
+
+					/**
+					 * Abandon the edit in progress
+					 * @returns {null}
+					 */
+					$scope.abandonEdit = function () {
+					    $scope.editorVisible = false;
+					    $scope.selectedStudent = null;
+					};
+
+
+					/**
+					 * functions, attached to $scope so they're visible in the view,
+					 * to handle editing a student
+					 *
+					 * @param {object} student
+					 * @returns {null}
+					 */
+					$scope.saveStudent = function (){
+					     var n,
+					         scount = $scope.students.length,
+					         currentStudent;
+
+					     $scope.editorVisible = false;
+					     // call dataService method
+					     dataService.updateStudent($scope.selectedStudent).then(
+					         function (response) {
+					             $scope.status = response.status;
+					             if (response.status === 'ok') { // if we saved the file then update the screen
+					                for (n = 0; n < scount; n += 1) {
+					                    currentStudent = $scope.students[n];
+					                    if (currentStudent.studentid === $scope.selectedStudent.studentid) {
+					                        $scope.students[n] = angular.copy($scope.selectedStudent);
+					                        break;
+					                    }
+					                }
+					             }
+					             console.log(response);
+					             // reset selectedStudent
+					             $scope.selectedStudent = null;
+					         },
+					         function (err) {
+					             $scope.status = "Error with save " + err;
+					         }
+					     );
+					 };
+
      				var studentInfo = $location.path().substr(1).split('/');
      				if(studentInfo.length === 3){
      					$scope.selectedStudent = {studentId: studentInfo[2]};

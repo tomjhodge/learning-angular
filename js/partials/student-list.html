@@ -1,20 +1,25 @@
 <section>
 	<h3>{{studentCount}} students</h3>
 	<p data-ng-if="students.length == 0">There are no students listed</p>
-    <table data-ng-show="students.length > 0">
-    	<tr>
-    		<th>Student ID</th>
-    		<th>Forname</th>
-    		<th>Surname</th>
-		</tr>
-        <tr data-ng-repeat="student in students"
-        	data-ng-click="selectStudent($event, student)"
-        	data-ng-class="{'selected':selectedStudent.studentid===student.studentid}"
-        	style="cursor:pointer;"
-        >
-            <td>{{student.studentid}}</td>
-            <td>{{student.forename}}</td>
-            <td>{{student.surname}}</td>
-        </tr>
-    </table>
+    <section style="position:relative;">
+    	<div data-ng-show="editorVisible" data-ng-include="'js/partials/student-edit.html'" id="studentEditor" class="editor shadow">
+	    </div>
+		<table class="link" data-ng-show="students.length > 0">
+			<caption>The are {{studentCount}} students listed</caption>
+	    	<tr>
+	    		<th>Student ID</th>
+	    		<th>Forname</th>
+	    		<th>Surname</th>
+			</tr>
+	        <tr data-ng-repeat="student in students"
+	        	data-ng-click="selectStudent($event, student); showEditStudent($event, student, 'studentEditor')"
+	        	data-ng-class="{'selected':selectedStudent.studentid===student.studentid}"
+	        	style="cursor:pointer;"
+	        >
+	            <td>{{student.studentid}}</td>
+	            <td>{{student.forename}}</td>
+	            <td>{{student.surname}}</td>
+	        </tr>
+	    </table>
+	</section>
 </section>
